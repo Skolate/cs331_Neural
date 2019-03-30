@@ -1,9 +1,10 @@
 import numpy as np
 
 from neural_net import MLP
+from plotting import plot_loss
 
 
-input_size = 32
+input_size = 16
 hidden_layers = 8
 input_default = [[0, 0], [0, 1], [1, 0], [1, 1]]
 normal_x = []
@@ -14,7 +15,6 @@ for x in range(int(input_size/4)):
 
 for x in range(input_size):
     offset.append([-1])
-
 
 #   Generates the random inputs and the correct results for said inputs
 # normal_x = np.random.randint(2, size=(input_size, 2))
@@ -29,5 +29,12 @@ X = np.append(X, offset, axis=1)
 print (normal_x)
 print (X)
 
+
+average_squared_error = 0
+
 mlp = MLP(hidden_layers)
 mlp.fit(X, Y)
+
+
+#   Graphing
+plot_loss(mlp.history.history['loss'])
